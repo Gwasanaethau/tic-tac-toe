@@ -35,6 +35,14 @@ class Board
     @grid[row - 1][column - 1].mark = player_mark
   end
 
+  def draw
+    puts row[0][0].mark + '|' + row[0][1].mark + '|' + row[0][2]
+    puts '–+–+–'
+    puts row[1][0].mark + '|' + row[1][1].mark + '|' + row[1][2]
+    puts '–+–+–'
+    puts row[2][0].mark + '|' + row[2][1].mark + '|' + row[2][2]
+  end
+
   private
 
   def default_grid
