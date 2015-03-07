@@ -62,13 +62,15 @@ class Game
     @current_player, @other_player = player.shuffle
   end
 
-  def switch_players
-    @current_player, @other_player = @other_player, @current_player
-  end
-
   def play
     # some sort of loop that gets input, passes to board, switches player, post board state
     # until win or stalemate.
+  end
+
+  private
+
+  def switch_players
+    @current_player, @other_player = @other_player, @current_player
   end
 end
 
