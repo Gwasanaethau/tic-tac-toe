@@ -83,16 +83,29 @@ class Game
   end
 
   def play
-    # some sort of loop that gets input, passes to board, switches player, post board state
-    # until win or stalemate.
     @board.draw_board
-    puts @current_player.name + ': you’re up!'
-    puts 'Select a slot to place your ' + @current_player.mark + ' in.'
-    slot = gets.chomp.to_i - 1 #FIXME: Assumes input is in correct format for the moment…
-    row = slot / 3
-    column = slot % 3
-    @board.mark(row, column, @current_player.mark)
-    @board.draw_board
+
+    until @board.won? || @board.draw?
+      puts "#{@current_player.name}: you’re up!"
+      puts "Select a slot to place your #{@current_player.mark} in."
+
+      slot = gets.chomp.to_i - 1 #FIXME: Assumes input is in correct format for the moment…
+      row = slot / 3
+      column = slot % 3
+      @board.mark(row, column, @current_player.mark)
+
+      if @board.won?
+        puts "Well done #{@current_player.name}, you won!"
+        puts "Commiserations #{@other_player.name}; better luck next time!"
+      elsif @board.draw?
+        puts "This game has ended in a draw!"
+      else
+        switch_players
+      end
+
+      @board.draw_board
+
+    end
   end
 
   private
