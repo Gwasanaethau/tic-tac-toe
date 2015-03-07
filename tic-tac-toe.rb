@@ -15,6 +15,7 @@ end
 
 class Player
   attr_reader :mark
+  attr_reader :name
   def initialize(settings_hash)
     @mark = settings_hash.fetch(:mark)
     @name = settings_hash.fetch(:name)
@@ -63,9 +64,15 @@ class Game
   end
 
   def play
-    @board.draw
     # some sort of loop that gets input, passes to board, switches player, post board state
     # until win or stalemate.
+    @board.draw
+    puts @current_player.name + ': you’re up!'
+    puts 'Select a slot to place your ' + @current_player.mark + ' in.'
+    slot = gets.chomp.to_i #FIXME: Assumes input is in correct format for the moment…
+    row = slot / 3
+    column = slot % 3
+    @board.mark(row, column, @current_player.mark)
   end
 
   private
