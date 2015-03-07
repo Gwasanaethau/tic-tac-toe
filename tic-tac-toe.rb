@@ -45,14 +45,17 @@ class Board
   end
 
   def won?
-    @grid[0][0].mark == @grid[0][1].mark == @grid[0][2].mark ||
-    @grid[1][0].mark == @grid[1][1].mark == @grid[1][2].mark ||
-    @grid[2][0].mark == @grid[2][1].mark == @grid[2][2].mark ||
-    @grid[0][0].mark == @grid[1][0].mark == @grid[2][0].mark ||
-    @grid[0][1].mark == @grid[1][1].mark == @grid[2][1].mark ||
-    @grid[0][2].mark == @grid[1][2].mark == @grid[2][2].mark ||
-    @grid[0][0].mark == @grid[1][1].mark == @grid[2][2].mark ||
-    @grid[0][2].mark == @grid[1][1].mark == @grid[2][0].mark
+    # Yeah, this is horrible, but it works, so it’s staying for the moment! S;-Þ
+    # It is essentially checking each row, column and diagonal for winning moves
+    # and making sure they are not winning moves of empty cells!
+    @grid[0][0].mark != ' ' && @grid[0][0].mark == @grid[0][1].mark && @grid[0][1].mark == @grid[0][2].mark ||
+    @grid[1][0].mark != ' ' && @grid[1][0].mark == @grid[1][1].mark && @grid[1][1].mark == @grid[1][2].mark ||
+    @grid[2][0].mark != ' ' && @grid[2][0].mark == @grid[2][1].mark && @grid[2][1].mark == @grid[2][2].mark ||
+    @grid[0][0].mark != ' ' && @grid[0][0].mark == @grid[1][0].mark && @grid[1][0].mark == @grid[2][0].mark ||
+    @grid[0][1].mark != ' ' && @grid[0][1].mark == @grid[1][1].mark && @grid[1][1].mark == @grid[2][1].mark ||
+    @grid[0][2].mark != ' ' && @grid[0][2].mark == @grid[1][2].mark && @grid[1][2].mark == @grid[2][2].mark ||
+    @grid[0][0].mark != ' ' && @grid[0][0].mark == @grid[1][1].mark && @grid[1][1].mark == @grid[2][2].mark ||
+    @grid[0][2].mark != ' ' && @grid[0][2].mark == @grid[1][1].mark && @grid[1][1].mark == @grid[2][0].mark
   end
 
   def draw?
@@ -90,6 +93,8 @@ class Game
       puts "Select a slot to place your #{@current_player.mark} in."
 
       slot = gets.chomp.to_i - 1 #FIXME: Assumes input is in correct format for the moment…
+      puts
+
       row = slot / 3
       column = slot % 3
       @board.mark(row, column, @current_player.mark)
