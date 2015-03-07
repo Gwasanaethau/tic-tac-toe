@@ -33,15 +33,26 @@ class Board
   end
 
   def mark(row, column, player_mark)
-    @grid[row - 1][column - 1].mark = player_mark
+    @grid[row][column].mark = player_mark
   end
 
-  def draw
+  def draw_board
     puts @grid[0][0].mark + '|' + @grid[0][1].mark + '|' + @grid[0][2].mark
     puts '–+–+–'
     puts @grid[1][0].mark + '|' + @grid[1][1].mark + '|' + @grid[1][2].mark
     puts '–+–+–'
     puts @grid[2][0].mark + '|' + @grid[2][1].mark + '|' + @grid[2][2].mark
+  end
+
+  def won?
+  end
+
+  def draw?
+    @grid.all? do |row|
+      row.all? do |cell|
+        cell.mark != ' '
+      end
+    end
   end
 
   private
@@ -66,13 +77,14 @@ class Game
   def play
     # some sort of loop that gets input, passes to board, switches player, post board state
     # until win or stalemate.
-    @board.draw
+    @board.draw_board
     puts @current_player.name + ': you’re up!'
     puts 'Select a slot to place your ' + @current_player.mark + ' in.'
-    slot = gets.chomp.to_i #FIXME: Assumes input is in correct format for the moment…
+    slot = gets.chomp.to_i - 1#FIXME: Assumes input is in correct format for the moment…
     row = slot / 3
     column = slot % 3
     @board.mark(row, column, @current_player.mark)
+    @board.draw_board
   end
 
   private
