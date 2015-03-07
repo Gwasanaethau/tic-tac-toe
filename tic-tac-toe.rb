@@ -36,11 +36,11 @@ class Board
   end
 
   def draw
-    puts @grid[0][0].mark + '|' + @grid[0][1].mark + '|' + @grid[0][2]
+    puts @grid[0][0].mark + '|' + @grid[0][1].mark + '|' + @grid[0][2].mark
     puts '–+–+–'
-    puts @grid[1][0].mark + '|' + @grid[1][1].mark + '|' + @grid[1][2]
+    puts @grid[1][0].mark + '|' + @grid[1][1].mark + '|' + @grid[1][2].mark
     puts '–+–+–'
-    puts @grid[2][0].mark + '|' + @grid[2][1].mark + '|' + @grid[2][2]
+    puts @grid[2][0].mark + '|' + @grid[2][1].mark + '|' + @grid[2][2].mark
   end
 
   private
@@ -63,6 +63,7 @@ class Game
   end
 
   def play
+    @board.draw
     # some sort of loop that gets input, passes to board, switches player, post board state
     # until win or stalemate.
   end
