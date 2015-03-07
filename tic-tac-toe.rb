@@ -36,11 +36,11 @@ class Board
   end
 
   def draw
-    puts row[0][0].mark + '|' + row[0][1].mark + '|' + row[0][2]
+    puts @grid[0][0].mark + '|' + @grid[0][1].mark + '|' + @grid[0][2]
     puts '–+–+–'
-    puts row[1][0].mark + '|' + row[1][1].mark + '|' + row[1][2]
+    puts @grid[1][0].mark + '|' + @grid[1][1].mark + '|' + @grid[1][2]
     puts '–+–+–'
-    puts row[2][0].mark + '|' + row[2][1].mark + '|' + row[2][2]
+    puts @grid[2][0].mark + '|' + @grid[2][1].mark + '|' + @grid[2][2]
   end
 
   private
