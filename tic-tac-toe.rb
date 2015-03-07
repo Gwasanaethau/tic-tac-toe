@@ -45,6 +45,14 @@ class Board
   end
 
   def won?
+    @grid[0][0].mark == @grid[0][1].mark == @grid[0][2].mark ||
+    @grid[1][0].mark == @grid[1][1].mark == @grid[1][2].mark ||
+    @grid[2][0].mark == @grid[2][1].mark == @grid[2][2].mark ||
+    @grid[0][0].mark == @grid[1][0].mark == @grid[2][0].mark ||
+    @grid[0][1].mark == @grid[1][1].mark == @grid[2][1].mark ||
+    @grid[0][2].mark == @grid[1][2].mark == @grid[2][2].mark ||
+    @grid[0][0].mark == @grid[1][1].mark == @grid[2][2].mark ||
+    @grid[0][2].mark == @grid[1][1].mark == @grid[2][0].mark
   end
 
   def draw?
@@ -80,7 +88,7 @@ class Game
     @board.draw_board
     puts @current_player.name + ': you’re up!'
     puts 'Select a slot to place your ' + @current_player.mark + ' in.'
-    slot = gets.chomp.to_i - 1#FIXME: Assumes input is in correct format for the moment…
+    slot = gets.chomp.to_i - 1 #FIXME: Assumes input is in correct format for the moment…
     row = slot / 3
     column = slot % 3
     @board.mark(row, column, @current_player.mark)
