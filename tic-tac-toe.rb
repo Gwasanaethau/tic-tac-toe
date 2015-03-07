@@ -72,6 +72,16 @@ class Game
   end
 end
 
+#========
+# MAIN
+#========
+
+# Currently initialises a game with a blank board and default players (Player 1 and Player 2).
+player1 = Player.new( { :name => 'Player 1', :mark => '×' } )
+player2 = Player.new( { :name => 'Player 2', :mark => '∘' } )
+game = Game.new( [player1, player2], Board.new )
+game.play
+
 
 
 
