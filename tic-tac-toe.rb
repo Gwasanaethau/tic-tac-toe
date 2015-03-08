@@ -33,7 +33,13 @@ class Board
   end
 
   def mark(row, column, player_mark)
-    @grid[row][column].mark = player_mark
+    if @grid[row][column].mark == ' '
+      @grid[row][column].mark = player_mark
+      true
+    else
+      puts 'That position has already been taken, please choose again!'
+      false
+    end
   end
 
   def draw_board
@@ -89,15 +95,11 @@ class Game
     @board.draw_board
 
     until @board.won? || @board.draw?
-      puts "#{@current_player.name}: you’re up!"
-      puts "Select a slot to place your #{@current_player.mark} in."
 
-      slot = gets.chomp.to_i - 1 #FIXME: Assumes input is in correct format for the moment…
-      puts
-
-      row = slot / 3
-      column = slot % 3
-      @board.mark(row, column, @current_player.mark)
+      row, column = get_mark_coords
+      until @board.mark(row, column, @current_player.mark)
+        row, column = get_mark_coords
+      end
 
       if @board.won?
         puts "Well done #{@current_player.name}, you won!"
@@ -117,6 +119,18 @@ class Game
 
   def switch_players
     @current_player, @other_player = @other_player, @current_player
+  end
+
+  def get_mark_coords
+    puts "#{@current_player.name}: you’re up!"
+    puts "Select a slot to place your #{@current_player.mark} in."
+
+    slot = gets.chomp.to_i - 1 #FIXME: Assumes input is in correct format for the moment…
+    puts
+
+    row = slot / 3
+    column = slot % 3
+    return row, column
   end
 end
 
