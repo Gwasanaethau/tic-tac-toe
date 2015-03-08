@@ -124,9 +124,18 @@ end
 # MAIN
 #========
 
-# Currently initialises a game with a blank board and default players (Player 1 and Player 2).
-player1 = Player.new( { :name => 'Player 1', :mark => '×' } )
-player2 = Player.new( { :name => 'Player 2', :mark => '∘' } )
+def create_player(default_name, default_mark)
+  puts "#{default_name}: what is your name? (<RETURN> for #{default_name})"
+  name = gets.chomp
+  name = default_name if name == ''
+  puts "So, #{name}, what symbol do you want to use? (<RETURN> for #{default_mark})"
+  mark = gets.chomp.chr
+  mark = default_mark if mark == ''
+  Player.new( { :name => name, :mark => mark } )
+end
+
+player1 = create_player('Player 1', '×')
+player2 = create_player('Player 2', '∘')
 game = Game.new( [player1, player2], Board.new )
 game.play
 
