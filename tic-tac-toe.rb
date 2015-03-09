@@ -39,8 +39,8 @@ end
 
 class Board
   attr_accessor :grid
-  def initialize(input = {})
-    @grid = input.fetch(:grid, default_grid)
+  def initialize
+    @grid = default_grid
   end
 
   def mark(row, column, player_mark)
