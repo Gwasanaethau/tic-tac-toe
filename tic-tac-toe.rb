@@ -37,8 +37,7 @@ end
 #========
 
 class Player
-  attr_reader :mark
-  attr_reader :name
+  attr_reader :mark, :name
   def initialize(settings_hash)
     @mark = settings_hash.fetch(:mark)
     @name = settings_hash.fetch(:name)
