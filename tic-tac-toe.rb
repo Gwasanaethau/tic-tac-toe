@@ -95,11 +95,9 @@ end
 #========
 
 class Game
-  attr_reader :players
-  def initialize(players, board)
-    @players = players
+  def initialize(players, board=Board.new)
     @board = board
-    @current_player, @other_player = @players.shuffle
+    @current_player, @other_player = players.shuffle
   end
 
   def play
@@ -161,7 +159,7 @@ end
 
 player1 = create_player('Player 1', '×')
 player2 = create_player('Player 2', '∘')
-game = Game.new( [player1, player2], Board.new )
+game = Game.new( [player1, player2])
 game.play
 
 
