@@ -18,6 +18,18 @@ class Cell
       @mark
     end
   end
+
+  def ==(cell)
+    @mark == cell.mark
+  end
+
+  def eql?(cell)
+    @mark == cell.mark
+  end
+
+  def hash
+    @mark.hash
+  end
 end
 
 #========
@@ -62,9 +74,10 @@ class Board
   end
 
   def won?
-    # Yeah, this is horrible, but it works, so it’s staying for the moment! S;-Þ
-    # It is essentially checking each row, column and diagonal for winning moves
-    # and making sure they are not winning moves of empty cells!
+=begin
+    Yeah, this is horrible, but it works, so it’s staying for the moment! S;-Þ
+    It is essentially checking each row, column and diagonal for winning moves
+    and making sure they are not winning moves of empty cells!
     @grid[0][0].mark != ' ' && @grid[0][0].mark == @grid[0][1].mark && @grid[0][1].mark == @grid[0][2].mark ||
     @grid[1][0].mark != ' ' && @grid[1][0].mark == @grid[1][1].mark && @grid[1][1].mark == @grid[1][2].mark ||
     @grid[2][0].mark != ' ' && @grid[2][0].mark == @grid[2][1].mark && @grid[2][1].mark == @grid[2][2].mark ||
@@ -73,6 +86,13 @@ class Board
     @grid[0][2].mark != ' ' && @grid[0][2].mark == @grid[1][2].mark && @grid[1][2].mark == @grid[2][2].mark ||
     @grid[0][0].mark != ' ' && @grid[0][0].mark == @grid[1][1].mark && @grid[1][1].mark == @grid[2][2].mark ||
     @grid[0][2].mark != ' ' && @grid[0][2].mark == @grid[1][1].mark && @grid[1][1].mark == @grid[2][0].mark
+=end
+    @grid.any? do |row|
+      row.uniq.length == 1 && row.first.mark != ' '
+    end ||
+    @grid.transpose.any? do |column|
+      column.uniq.length == 1 && column.first.mark != ' '
+    end
   end
 
   def draw?
