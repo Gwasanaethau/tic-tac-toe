@@ -4,12 +4,19 @@
 
 class Cell
   attr_accessor :mark
-  attr_reader :id
   @@id_count = 1
   def initialize(mark = ' ')
     @mark = mark
     @id = @@id_count
     @@id_count += 1
+  end
+
+  def to_s
+    if @mark == ' '
+      "\e[31m#{@id}\e[0m" # \e[31m is ASCII colour escape sequence for red. \e[0m returns the colour to default.
+    else
+      @mark
+    end
   end
 end
 
@@ -47,11 +54,11 @@ class Board
   end
 
   def draw_board
-    puts @grid[0][0].mark + '|' + @grid[0][1].mark + '|' + @grid[0][2].mark
+    puts @grid[0][0].to_s + '|' + @grid[0][1].to_s + '|' + @grid[0][2].to_s
     puts '–+–+–'
-    puts @grid[1][0].mark + '|' + @grid[1][1].mark + '|' + @grid[1][2].mark
+    puts @grid[1][0].to_s + '|' + @grid[1][1].to_s + '|' + @grid[1][2].to_s
     puts '–+–+–'
-    puts @grid[2][0].mark + '|' + @grid[2][1].mark + '|' + @grid[2][2].mark
+    puts @grid[2][0].to_s + '|' + @grid[2][1].to_s + '|' + @grid[2][2].to_s
   end
 
   def won?
