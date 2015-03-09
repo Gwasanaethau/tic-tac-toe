@@ -171,7 +171,11 @@ class Game
     puts "#{@current_player.name}: you’re up!"
     puts "Select a slot to place your #{@current_player.mark} in."
 
-    slot = gets.chomp.to_i - 1 #FIXME: Assumes input is in correct format for the moment…
+    slot = -1
+    until slot.between?(0,8)
+      print "Select a free number from the board: "
+      slot = gets.chomp.to_i - 1
+    end
     puts
 
     row = slot / 3
