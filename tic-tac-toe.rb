@@ -88,11 +88,13 @@ class Board
     @grid[0][2].mark != ' ' && @grid[0][2].mark == @grid[1][1].mark && @grid[1][1].mark == @grid[2][0].mark
 =end
     @grid.any? do |row|
-      row.uniq.length == 1 && row.first.mark != ' '
+      row.first.mark != ' ' && row.uniq.length == 1
     end ||
     @grid.transpose.any? do |column|
-      column.uniq.length == 1 && column.first.mark != ' '
-    end
+      column.first.mark != ' ' && column.uniq.length == 1
+    end ||
+    @grid[0][0].mark != ' ' && @grid[0][0].mark == @grid[1][1].mark && @grid[1][1].mark == @grid[2][2].mark ||
+    @grid[0][2].mark != ' ' && @grid[0][2].mark == @grid[1][1].mark && @grid[1][1].mark == @grid[2][0].mark
   end
 
   def draw?
