@@ -86,6 +86,8 @@ class Board
     @grid[0][0].mark != ' ' && @grid[0][0].mark == @grid[1][1].mark && @grid[1][1].mark == @grid[2][2].mark ||
     @grid[0][2].mark != ' ' && @grid[0][2].mark == @grid[1][1].mark && @grid[1][1].mark == @grid[2][0].mark
 =end
+
+    # Based on suggestions from Jade/Rob/Joe. Thanks guys! S;-)
     @grid.any? do |row|
       row.first.mark != ' ' && row.uniq.length == 1
     end ||
