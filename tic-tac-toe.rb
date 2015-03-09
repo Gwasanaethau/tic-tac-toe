@@ -95,8 +95,12 @@ end
 #========
 
 class Game
-  def initialize(players, board=Board.new)
+  def initialize(players=[], board=Board.new)
     @board = board
+    if players.length == 0
+      players << create_player('Player 1', '×')
+      players << create_player('Player 2', '∘')
+    end
     @current_player, @other_player = players.shuffle
   end
 
@@ -126,6 +130,16 @@ class Game
 
   private
 
+  def create_player(default_name, default_mark)
+    puts "#{default_name}: what is your name? (<RETURN> for #{default_name})"
+    name = gets.chomp
+    name = default_name if name == ''
+    puts "So, #{name}, what symbol do you want to use? (<RETURN> for #{default_mark})"
+    mark = gets.chomp.chr
+    mark = default_mark if mark == ''
+    Player.new( { :name => name, :mark => mark } )
+  end
+
   def switch_players
     @current_player, @other_player = @other_player, @current_player
   end
@@ -147,20 +161,7 @@ end
 # MAIN
 #========
 
-def create_player(default_name, default_mark)
-  puts "#{default_name}: what is your name? (<RETURN> for #{default_name})"
-  name = gets.chomp
-  name = default_name if name == ''
-  puts "So, #{name}, what symbol do you want to use? (<RETURN> for #{default_mark})"
-  mark = gets.chomp.chr
-  mark = default_mark if mark == ''
-  Player.new( { :name => name, :mark => mark } )
-end
-
-player1 = create_player('Player 1', '×')
-player2 = create_player('Player 2', '∘')
-game = Game.new( [player1, player2])
-game.play
+Game.new.play
 
 
 
