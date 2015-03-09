@@ -4,8 +4,12 @@
 
 class Cell
   attr_accessor :mark
+  attr_reader :id
+  @@id_count = 1
   def initialize(mark = ' ')
     @mark = mark
+    @id = @@id_count
+    @@id_count += 1
   end
 end
 
